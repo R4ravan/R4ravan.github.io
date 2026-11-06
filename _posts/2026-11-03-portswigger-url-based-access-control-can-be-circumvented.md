@@ -3,6 +3,9 @@ title: "PortSwigger: URL-Based Access Control Can Be Circumvented"
 date: 2026-11-03 10:05:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, practitioner, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-url-based-access-control-can-be-circumvented.svg
+  alt: "URL-Based Access Control Can Be Circumvented"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
