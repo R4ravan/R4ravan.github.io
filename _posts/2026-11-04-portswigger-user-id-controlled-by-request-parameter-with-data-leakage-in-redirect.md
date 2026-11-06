@@ -3,6 +3,9 @@ title: "PortSwigger: User ID Controlled by Request Parameter with Data Leakage i
 date: 2026-11-04 10:10:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter-with-data-leakage-in-redirect.svg
+  alt: "User ID Controlled by Request Parameter with Data Leakage in Redirect"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
