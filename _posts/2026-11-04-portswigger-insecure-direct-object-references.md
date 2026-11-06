@@ -3,6 +3,9 @@ title: "PortSwigger: Insecure Direct Object References"
 date: 2026-11-04 10:08:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-insecure-direct-object-references.svg
+  alt: "Insecure Direct Object References"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
