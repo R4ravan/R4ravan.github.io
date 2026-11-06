@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice]
 image:
   path: /assets/img/posts/covers/portswigger-unprotected-admin-functionality.svg
   alt: "Unprotected Admin Functionality"
+description: "The lab has an admin panel with no access control. The goal is to find it and use it to delete the user carlos."
 ---
 
 **Platform:** PortSwigger Web Security Academy  
