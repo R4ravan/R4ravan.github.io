@@ -3,6 +3,9 @@ title: "TryHackMe: Linux Fundamentals Part 1"
 date: 2026-11-03 10:01:00 +0530
 categories: [TryHackMe, Linux]
 tags: [tryhackme, linux, easy]
+image:
+  path: /assets/img/posts/covers/tryhackme-linux-fundamentals-part-1.svg
+  alt: "Linux Fundamentals Part 1"
 ---
 
 **Platform:** TryHackMe  
