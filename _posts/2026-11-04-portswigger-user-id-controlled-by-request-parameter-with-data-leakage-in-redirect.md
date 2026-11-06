@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter-with-data-leakage-in-redirect.svg
   alt: "User ID Controlled by Request Parameter with Data Leakage in Redirect"
+description: "The lab has an access control vulnerability where sensitive information is leaked in the body of a redirect response. The goal is to obtain the API key for carlos and…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
