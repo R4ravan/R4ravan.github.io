@@ -145,3 +145,27 @@ footer { font-size: .78rem; }
 ::-webkit-scrollbar-track { background: #0c0e11; }
 ::-webkit-scrollbar-thumb { background: #262b32; border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: #343a43; }
+
+/* ---------- Post card cover images ---------- */
+#post-list .post-preview > .col-md-5 {
+  display: flex;
+  align-items: center;
+  background: #0b0e12;
+}
+#post-list .preview-img {
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: 1200 / 630 !important;
+}
+#post-list .preview-img img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+#post-list .card-wrapper { overflow: hidden; }
+#post-list .card-wrapper:hover .preview-img img { transform: scale(1.03); }
+
+/* Post page cover */
+.post .preview-img img,
+article .preview-img img { border-radius: 10px; border: 1px solid var(--main-border-color); }
