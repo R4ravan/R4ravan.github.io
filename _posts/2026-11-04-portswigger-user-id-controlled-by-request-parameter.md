@@ -3,6 +3,9 @@ title: "PortSwigger: User ID Controlled by Request Parameter"
 date: 2026-11-04 10:07:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter.svg
+  alt: "User ID Controlled by Request Parameter"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
