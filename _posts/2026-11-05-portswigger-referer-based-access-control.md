@@ -3,6 +3,9 @@ title: "PortSwigger: Referer-Based Access Control"
 date: 2026-11-05 10:13:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, practitioner, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-referer-based-access-control.svg
+  alt: "Referer-Based Access Control"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
