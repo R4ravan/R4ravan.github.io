@@ -3,6 +3,9 @@ title: "PortSwigger: User ID Controlled by Request Parameter, with Unpredictable
 date: 2026-11-04 10:09:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice]
+image:
+  path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter-with-unpredictable-user-ids.svg
+  alt: "User ID Controlled by Request Parameter, with Unpredictable User IDs"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
