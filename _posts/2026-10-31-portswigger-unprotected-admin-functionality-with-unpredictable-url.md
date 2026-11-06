@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-unprotected-admin-functionality-with-unpredictable-url.svg
   alt: "Unprotected Admin Functionality with Unpredictable URL"
+description: "The admin panel sits at an unpredictable URL, but that URL is disclosed somewhere in the application. The goal is to find the panel and use it to delete the user carlos."
 ---
 
 **Platform:** PortSwigger Web Security Academy  
