@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter-with-password-disclosure.svg
   alt: "User ID Controlled by Request Parameter with Password Disclosure"
+description: "The lab's account page shows the current user's existing password, prefilled in a masked password field. The goal is to retrieve the administrator's password…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
