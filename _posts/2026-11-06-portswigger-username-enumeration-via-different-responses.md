@@ -6,6 +6,7 @@ tags: [portswigger, authentication, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-username-enumeration-via-different-responses.svg
   alt: "Username Enumeration via Different Responses"
+description: "The login form returns different responses depending on whether the submitted username exists. This behaviour turns the login endpoint into an oracle: it answers \"does…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
