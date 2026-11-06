@@ -6,6 +6,7 @@ tags: [portswigger, access-control, practitioner, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-url-based-access-control-can-be-circumvented.svg
   alt: "URL-Based Access Control Can Be Circumvented"
+description: "The site has an unauthenticated admin panel at /admin, but a front-end system blocks external access to that path. The back-end, however, runs on a framework that…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
