@@ -6,6 +6,7 @@ tags: [portswigger, access-control, practitioner, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-multi-step-process-with-no-access-control-on-one-step.svg
   alt: "Multi-Step Process with No Access Control on One Step"
+description: "The admin panel changes a user's role through a multi-step process. Access control is applied to the early steps but not to the final confirmation step. The goal is to…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
