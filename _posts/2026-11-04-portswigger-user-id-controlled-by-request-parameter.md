@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter.svg
   alt: "User ID Controlled by Request Parameter"
+description: "The lab has a horizontal privilege escalation vulnerability on the user account page. Logged in as the low-privileged user wiener:peter, the goal is to obtain the API…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
