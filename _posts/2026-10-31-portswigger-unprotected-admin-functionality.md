@@ -3,6 +3,9 @@ title: "PortSwigger: Unprotected Admin Functionality"
 date: 2026-10-31 10:01:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice]
+image:
+  path: /assets/img/posts/covers/portswigger-unprotected-admin-functionality.svg
+  alt: "Unprotected Admin Functionality"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
