@@ -3,6 +3,9 @@ title: "PortSwigger: Method-Based Access Control Can Be Circumvented"
 date: 2026-11-04 10:06:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, practitioner, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-method-based-access-control-can-be-circumvented.svg
+  alt: "Method-Based Access Control Can Be Circumvented"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
