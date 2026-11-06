@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-insecure-direct-object-references.svg
   alt: "Insecure Direct Object References"
+description: "The lab stores user chat logs directly on the server's file system and retrieves them using static URLs. The goal is to find the password for carlos, then log into his…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
