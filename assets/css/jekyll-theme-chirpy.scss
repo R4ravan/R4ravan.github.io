@@ -173,7 +173,8 @@ article .preview-img img { border-radius: 10px; border: 1px solid var(--main-bor
 /* ---------- Sidebar design ---------- */
 #sidebar {
   background: linear-gradient(180deg, #0f1519 0%, #0b0d10 45%, #0a0c0f 100%);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 #sidebar::before {
   content: '';
@@ -222,7 +223,7 @@ article .preview-img img { border-radius: 10px; border: 1px solid var(--main-bor
 }
 
 #sidebar .nav-link i {
-  width: 2rem; height: 2rem;
+  width: 1.8rem; height: 1.8rem;
   display: inline-flex; align-items: center; justify-content: center;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
