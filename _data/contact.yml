@@ -7,6 +7,10 @@
   icon: "fab fa-linkedin"
   url: "https://www.linkedin.com/in/vishnuvellasseryt/"
 
+- type: tryhackme
+  icon: "fas fa-flag"
+  url: "https://tryhackme.com/p/sosils"
+
 - type: rss
   icon: "fas fa-rss"
   noblank: true
