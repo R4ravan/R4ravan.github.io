@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-user-role-controlled-by-request-parameter.svg
   alt: "User Role Controlled by Request Parameter"
+description: "The lab has an admin panel at /admin that decides who is an administrator using a forgeable cookie. The goal is to reach the admin panel as a low-privileged user and use…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
