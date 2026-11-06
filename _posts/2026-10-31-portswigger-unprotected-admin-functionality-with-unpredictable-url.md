@@ -3,6 +3,9 @@ title: "PortSwigger: Unprotected Admin Functionality with Unpredictable URL"
 date: 2026-10-31 10:02:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-unprotected-admin-functionality-with-unpredictable-url.svg
+  alt: "Unprotected Admin Functionality with Unpredictable URL"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
