@@ -3,6 +3,9 @@ title: "PortSwigger: User Role Can Be Modified in User Profile"
 date: 2026-11-02 10:04:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-user-role-can-be-modified-in-user-profile.svg
+  alt: "User Role Can Be Modified in User Profile"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
