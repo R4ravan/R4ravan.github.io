@@ -5,11 +5,11 @@ categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
 ---
 
-**Platform:** PortSwigger Web Security Academy
-**Category:** Access Control
-**Difficulty:** Apprentice
-**Date:** 2026-11-02
-**Severity:** High — a non-admin user forges a client-side cookie to gain admin access and delete another user.
+**Platform:** PortSwigger Web Security Academy  
+**Category:** Access Control  
+**Difficulty:** Apprentice  
+**Date:** 2026-11-02  
+**Severity:** High — a non-admin user forges a client-side cookie to gain admin access and delete another user.  
 
 ---
 
