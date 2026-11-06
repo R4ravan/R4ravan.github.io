@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-user-role-can-be-modified-in-user-profile.svg
   alt: "User Role Can Be Modified in User Profile"
+description: "The lab has an admin panel at /admin that is only available to logged-in users with a roleid of 2. The goal is to escalate the low-privileged wiener account to that role…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
