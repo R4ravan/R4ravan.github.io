@@ -3,6 +3,9 @@ title: "PortSwigger: Username Enumeration via Different Responses"
 date: 2026-11-06 10:01:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-username-enumeration-via-different-responses.svg
+  alt: "Username Enumeration via Different Responses"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
