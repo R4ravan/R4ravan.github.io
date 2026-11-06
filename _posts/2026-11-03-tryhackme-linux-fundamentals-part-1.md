@@ -6,6 +6,7 @@ tags: [tryhackme, linux, easy]
 image:
   path: /assets/img/posts/covers/tryhackme-linux-fundamentals-part-1.svg
   alt: "Linux Fundamentals Part 1"
+description: "Linux is everywhere: web servers, car infotainment systems, point-of-sale tills, traffic-light controllers, phones and more. The room provides an in-browser Ubuntu…"
 ---
 
 **Platform:** TryHackMe  
