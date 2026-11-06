@@ -3,6 +3,9 @@ title: "PortSwigger: User Role Controlled by Request Parameter"
 date: 2026-11-02 10:03:00 +0530
 categories: [PortSwigger, Access Control]
 tags: [portswigger, access-control, apprentice, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-user-role-controlled-by-request-parameter.svg
+  alt: "User Role Controlled by Request Parameter"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
