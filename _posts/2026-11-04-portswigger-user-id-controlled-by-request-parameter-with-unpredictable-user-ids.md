@@ -6,6 +6,7 @@ tags: [portswigger, access-control, apprentice]
 image:
   path: /assets/img/posts/covers/portswigger-user-id-controlled-by-request-parameter-with-unpredictable-user-ids.svg
   alt: "User ID Controlled by Request Parameter, with Unpredictable User IDs"
+description: "The lab has a horizontal privilege escalation vulnerability on the user account page, but identifies users with GUIDs instead of predictable numbers. The goal is to find…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
