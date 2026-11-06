@@ -6,6 +6,7 @@ tags: [portswigger, access-control, practitioner, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-method-based-access-control-can-be-circumvented.svg
   alt: "Method-Based Access Control Can Be Circumvented"
+description: "The site enforces access control on admin actions based partly on the HTTP method of the request. Logging in with administrator:admin lets you explore the admin panel…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
