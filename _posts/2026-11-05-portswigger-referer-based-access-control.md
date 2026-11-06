@@ -6,6 +6,7 @@ tags: [portswigger, access-control, practitioner, burp-suite]
 image:
   path: /assets/img/posts/covers/portswigger-referer-based-access-control.svg
   alt: "Referer-Based Access Control"
+description: "The admin panel's main page /admin is properly access-controlled, but a sensitive sub-action — the role-change endpoint — decides whether to allow the request by…"
 ---
 
 **Platform:** PortSwigger Web Security Academy  
