@@ -1,6 +1,6 @@
 ---
 title: "PortSwigger: Username Enumeration via Subtly Different Responses"
-date: 2026-11-07 10:00:00 +0530
+date: 2026-11-07 06:30:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite]
 image:
