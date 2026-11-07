@@ -42,6 +42,9 @@ With Burp proxying traffic, I submitted a junk login — `username=test`, `passw
 Invalid username or password.
 ```
 
+![Login rejects an invalid username and password with the generic error](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599625_kali-linux-2026.1-vmware-amd64-2026-11-06-21-31-31.png)
+_The generic failure message — the same sentence is supposed to come back for every bad login._
+
 So far this looks secure. Unlike the *different responses* lab, there is no obvious `Invalid username` vs `Incorrect password` split — every failure returns the same generic sentence, and the responses are almost exactly the same length (around 3463–3464 bytes). The status code is `200` for every failed attempt too.
 
 That means **none of the usual signals work here**:
@@ -74,7 +77,13 @@ In Intruder I chose a **Sniper** attack, cleared the auto-selected positions, an
 username=§test§&password=test
 ```
 
+![Intruder Sniper attack with only the username marked as a payload position](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599626_kali-linux-2026.1-vmware-amd64-2026-11-06-21-38-38.png)
+_Sniper attack with a single payload position on the username parameter._
+
 I loaded the **candidate usernames** list (101 payloads) as a Simple list.
+
+![The candidate usernames wordlist loaded as a Simple list payload](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599627_kali-linux-2026.1-vmware-amd64-2026-11-06-21-38-49.png)
+_The 101 candidate usernames loaded into the payload set._
 
 The important step is the **Grep - Extract** rule. Under **Settings → Grep - Extract**, I clicked **Add**, scrolled through the sample response until I found the `Invalid username or password.` message, and highlighted the full text of it. Burp then extracts that exact string from every response and drops it into its own results column.
 
@@ -82,13 +91,22 @@ Then I started the attack.
 
 > **Key observation — every obvious column is flat.** All 101 requests returned **HTTP 200**, and the lengths barely moved (3463 vs 3464). If you only look at status or length, nothing stands out. The whole attack lives in the extracted-error column.
 
+![Intruder results showing every request returning HTTP 200 with near-identical length](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599627_kali-linux-2026.1-vmware-amd64-2026-11-06-21-40-27.png)
+_Status is 200 for every row and the length barely moves — no obvious tell._
+
 When the attack finished, I sorted (or filtered) on the extracted error column. The fastest way to find the odd one is a **negative filter**: in the results filter I searched for the literal string `Invalid username or password.` with **Negative search** enabled — that is, *show me every row that does NOT contain this exact message*.
+
+![Burp Intruder filter settings with a negative search on the error message](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599629_kali-linux-2026.1-vmware-amd64-2026-11-06-21-41-44.png)
+_Filtering with Negative search on the exact error string hides every normal response._
 
 Only **one** request survived the filter:
 
 ```
 Request 69   →   payload: apache   →   status 200   →   length 3463
 ```
+
+![Only the apache request remains after the negative filter](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599629_kali-linux-2026.1-vmware-amd64-2026-11-06-21-41-49.png)
+_One row survives — `apache` — because its error message doesn't match the others._
 
 Every other username returned the message exactly as `Invalid username or password.` — but `apache` returned something that *didn't match*. Looking closely at that one response reveals the flaw:
 
@@ -109,6 +127,9 @@ username=apache&password=§invalid-password§
 
 I cleared the username payloads, loaded the **candidate passwords** list (100 payloads), and started a second attack.
 
+![The candidate passwords wordlist loaded for the brute-force attack](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599630_kali-linux-2026.1-vmware-amd64-2026-11-06-21-42-24.png)
+_The 100 candidate passwords loaded against the known username._
+
 > **Key observation — now the status code is the signal.** A failed login returns `200`; a successful one redirects. So this time I sorted by the **Status** column.
 
 Exactly one request broke the pattern with a **`302 Found`**:
@@ -117,6 +138,9 @@ Exactly one request broke the pattern with a **`302 Found`**:
 Request 35   →   payload: jordan   →   status 302   →   length 188
 ```
 
+![Sorting by status code reveals the jordan request returning 302](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599632_kali-linux-2026.1-vmware-amd64-2026-11-06-21-42-44.png)
+_One payload — `jordan` — breaks the pattern with a 302 instead of 200._
+
 The response confirmed the login and issued a fresh authenticated session:
 
 ```
@@ -124,6 +148,9 @@ HTTP/2 302 Found
 Location: /my-account?id=apache
 Set-Cookie: session=<NEW-AUTHENTICATED-SESSION>; Secure; HttpOnly; SameSite=None
 ```
+
+![Repeater showing the successful login returning 302 with a redirect to the account page](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599632_kali-linux-2026.1-vmware-amd64-2026-11-06-21-42-58.png)
+_Replaying `apache:jordan` in Repeater confirms the 302 redirect to `/my-account`._
 
 **Valid password: `jordan`**
 
@@ -135,6 +162,9 @@ Using the recovered credentials **`apache : jordan`**, I authenticated and loade
 Your username is: apache
 Your email is: apache@normal-user.net
 ```
+
+![The account page for apache with the lab marked as solved](/assets/img/posts/images/portswigger-username-enumeration-via-subtly-different-responses/1794021599633_kali-linux-2026.1-vmware-amd64-2026-11-06-21-43-54.png)
+_Logged in as `apache` — the lab banner flips to "Congratulations, you solved the lab!"_
 
 The lab flipped to **Solved**. ✅
 
