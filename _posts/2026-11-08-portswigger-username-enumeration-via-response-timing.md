@@ -3,6 +3,9 @@ title: "PortSwigger: Username Enumeration via Response Timing"
 date: 2026-11-08 14:30:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite]
+image:
+  path: /assets/img/posts/covers/portswigger-username-enumeration-via-response-timing.png
+  alt: "Username Enumeration via Response Timing"
 description: "The login form returns an identical error for every failed attempt, but the time it takes to respond leaks whether a username is valid. On top of that, IP-based brute-force protection is bypassable via X-Forwarded-For. Here's the full chain: bypass the block, enumerate the user by timing, brute-force the password."
 ---
 
