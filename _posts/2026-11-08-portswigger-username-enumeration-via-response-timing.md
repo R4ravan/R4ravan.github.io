@@ -3,9 +3,6 @@ title: "PortSwigger: Username Enumeration via Response Timing"
 date: 2026-11-08 14:30:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite]
-image:
-  path: /assets/img/posts/covers/portswigger-username-enumeration-via-response-timing.svg
-  alt: "Username Enumeration via Response Timing"
 description: "The login form returns an identical error for every failed attempt, but the time it takes to respond leaks whether a username is valid. On top of that, IP-based brute-force protection is bypassable via X-Forwarded-For. Here's the full chain: bypass the block, enumerate the user by timing, brute-force the password."
 ---
 
@@ -30,7 +27,7 @@ Given credentials: `wiener:peter`. The twist is an **IP-based brute-force protec
 
 With Burp proxying traffic, I submitted a login from the browser and sent the `POST /login` request to Repeater.
 
-![Login POST request captured in Burp Proxy](/assets/img/posts/portswigger-username-enumeration-via-response-timing/01-proxy-history.png)
+![Login POST request captured in Burp Proxy](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/01-proxy-history.png)
 
 The request body is simple:
 
@@ -47,7 +44,7 @@ Two behaviours to note first:
 - **Valid credentials** (`wiener:peter`) return **302 Found** with `Location: /my-account?id=wiener`.
 - **Invalid credentials** return **200 OK** with the login page re-rendered and the message `Invalid username or password.`
 
-![Valid login returns a 302 redirect](/assets/img/posts/portswigger-username-enumeration-via-response-timing/02-valid-302.png)
+![Valid login returns a 302 redirect](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/02-valid-302.png)
 
 ### IP-based protection
 
@@ -55,7 +52,7 @@ After a handful of invalid attempts, the server started blocking my IP. I needed
 
 Adding an **`X-Forwarded-For`** header with a different value on each request makes the server treat each request as coming from a fresh IP, which **resets/avoids the rate limit**.
 
-![Adding the X-Forwarded-For header to the request](/assets/img/posts/portswigger-username-enumeration-via-response-timing/03-xff-header.png)
+![Adding the X-Forwarded-For header to the request](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/03-xff-header.png)
 
 ```http
 X-Forwarded-For: 1
@@ -63,7 +60,7 @@ X-Forwarded-For: 1
 
 With that header in place the request still logs in correctly, confirming the header is honoured.
 
-![Spoofed IP still produces a valid 302](/assets/img/posts/portswigger-username-enumeration-via-response-timing/04-xff-valid.png)
+![Spoofed IP still produces a valid 302](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/04-xff-valid.png)
 
 ### The timing leak
 
@@ -74,7 +71,7 @@ I then played with the password length while keeping the username fixed:
 
 The reason: for a non-existent user the app bails out early. For a real user it actually runs the (slow) password hashing routine, so a long password makes that work measurably longer. That difference is the oracle — it tells me whether a username exists without the error message ever changing.
 
-![Invalid credentials return the same generic error](/assets/img/posts/portswigger-username-enumeration-via-response-timing/05-invalid-error.png)
+![Invalid credentials return the same generic error](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/05-invalid-error.png)
 
 ## 💥 Exploitation
 
@@ -82,7 +79,7 @@ The reason: for a non-existent user the app bails out early. For a real user it 
 
 I sent the request to **Intruder** and chose a **Pitchfork** attack so I could rotate the spoofed IP *and* cycle usernames at the same time. Password was set to a long (~100 char) string to amplify the timing difference for any valid user.
 
-![Intruder Pitchfork with X-Forwarded-For and username positions](/assets/img/posts/portswigger-username-enumeration-via-response-timing/06-intruder-positions.png)
+![Intruder Pitchfork with X-Forwarded-For and username positions](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/06-intruder-positions.png)
 
 ```http
 X-Forwarded-For: §1§
@@ -95,19 +92,17 @@ username=§wiener§&password=testtesttest12345...<long>
 
 After the attack finished I added the **Response received** and **Response completed** columns (via **Columns**) and sorted by them.
 
-![First username run, response time columns added](/assets/img/posts/portswigger-username-enumeration-via-response-timing/07-username-run-1.png)
+![First username run, response time columns added](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/07-username-run-1.png)
 
 Most usernames clustered around the same low response time. One value, **`app`**, stood out with a noticeably higher completion time than everything else. I re-ran it a few times to confirm it was consistent and not just network noise.
 
-![`app` shows a clearly longer response time](/assets/img/posts/portswigger-username-enumeration-via-response-timing/08-app-standout.png)
+![`app` shows a clearly longer response time](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/08-app-standout.png)
 
 Valid username identified: **`app`**.
 
 ### Phase 2 — Brute-force the password
 
 New Intruder attack on the same request. This time I **fixed the username to `app`**, kept the `X-Forwarded-For` rotation to stay under the rate limit, and put the candidate password list on the password parameter.
-
-![Password brute-force setup for user `app`](/assets/img/posts/portswigger-username-enumeration-via-response-timing/09-password-positions.png)
 
 ```http
 X-Forwarded-For: §1§
@@ -117,7 +112,7 @@ username=app&password=§123456§
 
 Every wrong password returned **200** (`Invalid username or password.`). I filtered for the odd one out — the request for **`aaaaaa`** came back with **302**, the status that means a successful login.
 
-![The password `aaaaaa` returns a 302](/assets/img/posts/portswigger-username-enumeration-via-response-timing/10-password-302.png)
+![The password `aaaaaa` returns a 302](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/09-password-302.png)
 
 Credentials recovered: **`app:aaaaaa`**.
 
@@ -125,11 +120,11 @@ Credentials recovered: **`app:aaaaaa`**.
 
 I entered `app` / `aaaaaa` on the login form.
 
-![Logging in as app](/assets/img/posts/portswigger-username-enumeration-via-response-timing/11-login-app.png)
+![Logging in as app](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/10-login-app.png)
 
 The account page loaded (`/my-account?id=app`) and the lab flipped to **Solved**.
 
-![Lab solved](/assets/img/posts/portswigger-username-enumeration-via-response-timing/12-solved.png)
+![Lab solved](/assets/img/posts/images/portswigger-username-enumeration-via-response-timing/11-solved.png)
 
 ## 🧠 Root Cause
 
