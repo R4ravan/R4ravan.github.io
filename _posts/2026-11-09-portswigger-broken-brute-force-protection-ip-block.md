@@ -4,7 +4,7 @@ date: 2026-11-09 10:02:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite, brute-force]
 image:
-  path: /assets/img/posts/covers/portswigger-broken-brute-force-protection-ip-block.svg
+  path: /assets/img/posts/covers/portswigger_bruteforce_cover_with_title.png
   alt: "Broken Brute-Force Protection, IP Block"
 description: "The login blocks your IP after 3 consecutive failed logins, but the failure counter is reset by any successful login. By interleaving valid wiener logins between carlos guesses, I kept the IP unblocked and brute-forced carlos's password."
 ---
