@@ -4,7 +4,7 @@ date: 2026-11-09 23:10:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite, username-enumeration, brute-force]
 image:
-  path: /assets/img/posts/covers/portswigger_account_lock_cover_with_title.png
+  path: /assets/img/posts/covers/account_lock_cover_banner.png
   alt: "Username Enumeration via Account Lock"
 description: "The login form locks an account after too many failed attempts — and that lock message leaks which usernames are valid. I enumerated the username 'announce' through the lock response, then brute-forced its password despite the lock because the correct password still produced a distinct, shorter response."
 ---
