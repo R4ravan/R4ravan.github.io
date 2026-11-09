@@ -41,11 +41,11 @@ HTTP/2 302 Found
 Location: /my-account?id=wiener
 ```
 
-![Valid wiener login lands on the account page](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-29-45.png)
+![Valid wiener login lands on the account page](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-29-45.png)
 
 Next I probed `carlos` in Repeater. A single wrong guess returns `200` with **"Incorrect password"**:
 
-![Single failure: Incorrect password](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-33-46.png)
+![Single failure: Incorrect password](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-33-46.png)
 
 But after **3 incorrect logins in a row**, the server stops checking the password and returns a block message instead:
 
@@ -54,7 +54,7 @@ You have made too many incorrect login attempts.
 Please try again in 1 minute(s).
 ```
 
-![IP block after too many failures](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-33-54.png)
+![IP block after too many failures](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-33-54.png)
 
 **The logic flaw:** the IP block triggers after **3 consecutive failed logins**, but the failure counter is **reset by any successful login**. So if I slip a genuine `wiener:peter` login in before the limit is reached, the counter never hits the threshold and the block never fires. This lets me brute-force `carlos` indefinitely.
 
@@ -73,7 +73,7 @@ Enter an invalid username/password, send the `POST /login` request to Intruder, 
 
 This is critical. In **Resource Pool**, create a custom pool with **Maximum concurrent requests = 1**. Sending one request at a time guarantees the login attempts reach the server in the correct order — otherwise parallel requests could fire 3+ `carlos` failures before a `wiener` reset lands and re-trigger the block.
 
-![Resource pool set to 1 concurrent request](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-59-07.png)
+![Resource pool set to 1 concurrent request](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-59-07.png)
 
 **3. Build the aligned payload lists.**
 
@@ -89,7 +89,7 @@ carlos
 ...
 ```
 
-![Payload set 1: username list](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-49-54.png)
+![Payload set 1: username list](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-49-54.png)
 
 Position 2 (password) must line up with it: a valid `peter` wherever the username is `wiener`, and the candidate passwords wherever it's `carlos`. I used `awk` to inject `peter` after every two candidates:
 
@@ -110,11 +110,11 @@ peter
 ...
 ```
 
-![Building the interleaved password list with awk](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-49-39.png)
+![Building the interleaved password list with awk](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-49-39.png)
 
 So each group of three requests is: `wiener:peter` (success → counter reset), `carlos:guess1` (fail), `carlos:guess2` (fail), then reset again.
 
-![Payload set 2 loaded + results](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-55-38.png)
+![Payload set 2 loaded + results](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-55-38.png)
 
 **4. Run the attack and read the status codes.**
 
@@ -141,11 +141,11 @@ HTTP/2 302 Found
 Location: /my-account?id=carlos
 ```
 
-![Repeater confirms carlos:batman → 302](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-22-59-17.png)
+![Repeater confirms carlos:batman → 302](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-22-59-17.png)
 
 **6. Log in via the browser** as `carlos:batman` and open the account page. Lab solved.
 
-![Congratulations, you solved the lab](https://raw.githubusercontent.com/R4ravan/web-security-writeups/main/portswigger/authentication/images/kali-linux-2026.1-vmware-amd64-2026-11-08-23-00-18.png)
+![Congratulations, you solved the lab](/assets/img/posts/images/PortSwigger%3A%20Broken%20Brute-Force%20Protection%2C%20IP%20Block/kali-linux-2026.1-vmware-amd64-2026-11-08-23-00-18.png)
 
 ## 🧠 Root Cause
 
