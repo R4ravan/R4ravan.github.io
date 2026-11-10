@@ -4,7 +4,7 @@ date: 2026-11-09 23:10:00 +0530
 categories: [PortSwigger, Authentication]
 tags: [portswigger, authentication, practitioner, burp-suite, username-enumeration, brute-force]
 image:
-  path: /assets/img/posts/covers/portswigger_account_lock_cover_with_title.png
+  path: /assets/img/posts/covers/account_lock_cover_banner.png
   alt: "Username Enumeration via Account Lock"
 description: "The login form locks an account after too many failed attempts — and that lock message leaks which usernames are valid. I enumerated the username 'announce' through the lock response, then brute-forced its password despite the lock because the correct password still produced a distinct, shorter response."
 ---
@@ -67,7 +67,7 @@ username=§invalid-username§&password=example§§
 
 Run it, then sort by **Length**. Every username sits at `3344`, except **`announce`**, whose three later hits jump to `3396` — those are the responses carrying the account-lock message. The render pane confirms it: *"You have made too many incorrect login attempts."*
 
-![Cluster bomb: `announce` responses are longer (3396) — account locked, username is valid](/assets/img/posts/images/PortSwigger%3A%20Username%20Enumeration%20via%20Account%20Lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-28-31.png)
+![Cluster bomb: `announce` responses are longer (3396) — account locked, username is valid](/assets/img/posts/images/username-enumeration-via-account-lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-28-31.png)
 
 **Valid username: `announce`.**
 
@@ -84,7 +84,7 @@ username=announce&password=§example§
 
 Here's the logic flaw that makes this work: even while the account is "locked", the server **still evaluates the submitted password**. Wrong guesses render the lock message (longest responses, `3396`); the **correct** password renders a *different* page with **no error block at all** — which shows up as a distinctly **shorter** response. Row 19, payload **`666666`**, drops to `3266` while everything around it sits at `3396`/`3344`:
 
-![Sniper password brute-force: `666666` is the odd one out at 3266 (no error message)](/assets/img/posts/images/PortSwigger%3A%20Username%20Enumeration%20via%20Account%20Lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-32-24.png)
+![Sniper password brute-force: `666666` is the odd one out at 3266 (no error message)](/assets/img/posts/images/username-enumeration-via-account-lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-32-24.png)
 
 **Password: `666666`.**
 
@@ -103,14 +103,14 @@ HTTP/2 200 OK
 ...
 ```
 
-![Repeater confirms `announce:666666` returns a clean 200 with no error](/assets/img/posts/images/PortSwigger%3A%20Username%20Enumeration%20via%20Account%20Lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-32-45.png)
+![Repeater confirms `announce:666666` returns a clean 200 with no error](/assets/img/posts/images/username-enumeration-via-account-lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-32-45.png)
 
 > The lock resets after **1 minute**. Wait it out before logging in through the browser, otherwise the lock will still bounce you even with the correct credentials.
 {: .prompt-tip }
 
 Log in as `announce:666666` in the browser and open the account page. Lab solved.
 
-![Congratulations, you solved the lab — My Account page for `announce`](/assets/img/posts/images/PortSwigger%3A%20Username%20Enumeration%20via%20Account%20Lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-41-23.png)
+![Congratulations, you solved the lab — My Account page for `announce`](/assets/img/posts/images/username-enumeration-via-account-lock/kali-linux-2026.1-vmware-amd64-2026-11-09-22-41-23.png)
 
 ## 🧠 Root Cause
 
