@@ -29,10 +29,10 @@ title: Writeups
 <div class="wu-grid">
   {% for p in platforms %}
     {% assign f = p | split: "|" %}
-    {% assign key = f[0] %}{% assign posts = site.categories[key] %}
+    {% assign key = f[0] %}{% assign slug = key | slugify %}{% assign posts = site.categories[key] %}
     {% assign n = posts | size %}
     {% if n > 0 %}
-      <a class="wu-card" href="{{ '/categories/' | append: f[0] | slugify | append: '/' | relative_url }}">
+      <a class="wu-card" href="{{ '/categories/' | append: slug | append: '/' | relative_url }}">
     {% else %}
       <div class="wu-card wu-empty">
     {% endif %}
@@ -45,7 +45,7 @@ title: Writeups
 
 {% for p in platforms %}
   {% assign f = p | split: "|" %}
-  {% assign key = f[0] %}{% assign posts = site.categories[key] %}
+  {% assign key = f[0] %}{% assign slug = key | slugify %}{% assign posts = site.categories[key] %}
   {% if posts.size > 0 %}
   <div class="wu-section">
     <h3><i class="fas {{ f[1] }}"></i> Latest {{ f[0] }}</h3>
@@ -54,7 +54,7 @@ title: Writeups
         <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><time>{{ post.date | date: "%b %-d, %Y" }}</time></li>
       {% endfor %}
     </ul>
-    <a class="wu-more" href="{{ '/categories/' | append: f[0] | slugify | append: '/' | relative_url }}">All {{ f[0] }} writeups →</a>
+    <a class="wu-more" href="{{ '/categories/' | append: slug | append: '/' | relative_url }}">All {{ f[0] }} writeups →</a>
   </div>
   {% endif %}
 {% endfor %}
