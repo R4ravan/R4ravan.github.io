@@ -1,4 +1,60 @@
 ---
-layout: home
-# Index page
+layout: page
+title: Writeups
 ---
+
+<style>
+  .wu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
+  .wu-card { display: block; padding: 1.5rem; border-radius: .75rem; background: var(--card-bg); border: 1px solid var(--main-border-color, rgba(128,128,128,.25)); box-shadow: var(--card-shadow); text-decoration: none !important; transition: transform .15s ease, border-color .15s ease; }
+  a.wu-card:hover { transform: translateY(-3px); border-color: var(--link-color); }
+  .wu-card.wu-empty { opacity: .6; }
+  .wu-card h2 { margin: 0 0 .25rem; font-size: 1.3rem; border: 0; padding: 0; }
+  .wu-card h2::before { display: none; }
+  .wu-card .wu-count { font-size: .85rem; color: var(--text-muted-color); }
+  .wu-card p { margin: .75rem 0 0; font-size: .92rem; color: var(--text-color); }
+  .wu-section { margin-top: 2rem; }
+  .wu-section > h3 { margin-bottom: 1rem; }
+  .wu-list { list-style: none; padding: 0; margin: 0 0 .75rem; }
+  .wu-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--main-border-color, rgba(128,128,128,.2)); }
+  .wu-list time { color: var(--text-muted-color); font-size: .8rem; white-space: nowrap; }
+  .wu-more { font-size: .9rem; }
+</style>
+
+{% comment %}
+  To add a new box: add a line  Name|fontawesome-icon|description
+  The Name must match the category used in the posts, e.g.  categories: [Juice Shop, XSS]
+{% endcomment %}
+{% assign platforms = "PortSwigger|fa-bug|Web Security Academy labs: authentication, access control and more, with Burp Suite walkthroughs.;;TryHackMe|fa-terminal|Room walkthroughs covering Linux, networking and hands-on hacking basics.;;Juice Shop|fa-glass-whiskey|OWASP Juice Shop challenges: a deliberately insecure modern web app.;;VulnHub|fa-server|Boot-to-root vulnerable machines, from recon to root.;;OverTheWire|fa-flag|Wargames that build up your Linux and security fundamentals level by level." | split: ";;" %}
+
+<div class="wu-grid">
+  {% for p in platforms %}
+    {% assign f = p | split: "|" %}
+    {% assign posts = site.categories[f[0]] %}
+    {% assign n = posts | size %}
+    {% if n > 0 %}
+      <a class="wu-card" href="{{ '/categories/' | append: f[0] | slugify | append: '/' | relative_url }}">
+    {% else %}
+      <div class="wu-card wu-empty">
+    {% endif %}
+        <h2><i class="fas {{ f[1] }}"></i> {{ f[0] }}</h2>
+        <span class="wu-count">{% if n > 0 %}{{ n }} writeup{% if n > 1 %}s{% endif %}{% else %}Coming soon{% endif %}</span>
+        <p>{{ f[2] }}</p>
+    {% if n > 0 %}</a>{% else %}</div>{% endif %}
+  {% endfor %}
+</div>
+
+{% for p in platforms %}
+  {% assign f = p | split: "|" %}
+  {% assign posts = site.categories[f[0]] %}
+  {% if posts.size > 0 %}
+  <div class="wu-section">
+    <h3><i class="fas {{ f[1] }}"></i> Latest {{ f[0] }}</h3>
+    <ul class="wu-list">
+      {% for post in posts limit: 5 %}
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><time>{{ post.date | date: "%b %-d, %Y" }}</time></li>
+      {% endfor %}
+    </ul>
+    <a class="wu-more" href="{{ '/categories/' | append: f[0] | slugify | append: '/' | relative_url }}">All {{ f[0] }} writeups →</a>
+  </div>
+  {% endif %}
+{% endfor %}
