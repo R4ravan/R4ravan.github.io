@@ -8,7 +8,7 @@ title: Writeups
   .wu-card { display: block; padding: 1rem 1rem 1.4rem; border-radius: .75rem; background: var(--card-bg); border: 1px solid var(--main-border-color, rgba(128,128,128,.25)); box-shadow: var(--card-shadow); text-decoration: none !important; transition: transform .15s ease, border-color .15s ease; }
   a.wu-card:hover { transform: translateY(-3px); border-color: var(--link-color); }
   .wu-card.wu-empty { opacity: .65; }
-  .wu-card img.wu-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; border-radius: .5rem; margin-bottom: 1rem; }
+  .wu-card .wu-img { width: 100%; aspect-ratio: 16 / 9; background-size: cover; background-position: center; background-repeat: no-repeat; border-radius: .5rem; margin-bottom: 1rem; }
   .wu-card h2 { margin: 0 0 .25rem; font-size: 1.3rem; border: 0; padding: 0; }
   .wu-card h2::before { display: none; }
   .wu-card .wu-count { font-size: .85rem; color: var(--text-muted-color); }
@@ -33,12 +33,13 @@ title: Writeups
     {% assign f = p | split: "|" %}
     {% assign key = f[0] %}{% assign slug = key | slugify %}{% assign posts = site.categories[key] %}
     {% assign n = posts | size %}
+    {% assign img = '/assets/img/platforms/' | append: f[3] | relative_url %}
     {% if n > 0 %}
       <a class="wu-card" href="{{ '/categories/' | append: slug | append: '/' | relative_url }}">
     {% else %}
       <div class="wu-card wu-empty">
     {% endif %}
-        <img class="wu-img" src="{{ '/assets/img/platforms/' | append: f[3] | relative_url }}" alt="{{ f[0] }}" loading="lazy">
+        <div class="wu-img" role="img" aria-label="{{ f[0] }}" style="background-image: url('{{ img }}')"></div>
         <h2><i class="fas {{ f[1] }}"></i> {{ f[0] }}</h2>
         <span class="wu-count">{% if n > 0 %}{{ n }} writeup{% if n > 1 %}s{% endif %}{% else %}Coming soon{% endif %}</span>
         <p>{{ f[2] }}</p>
