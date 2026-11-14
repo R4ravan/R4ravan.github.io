@@ -1,0 +1,10 @@
+{% assign p = include.post %}
+{% assign cover = p.image.path | default: p.image %}
+<a class="wu-pcard" href="{{ p.url | relative_url }}">
+  {% if cover %}<div class="wu-pimg" role="img" aria-label="{{ p.title | escape }}" style="background-image: url('{{ cover | relative_url }}')"></div>{% endif %}
+  <div class="wu-pbody">
+    <h4>{{ p.title | remove_first: "PortSwigger: " | remove_first: "TryHackMe: " }}</h4>
+    <p>{{ p.description | truncatewords: 20 }}</p>
+    <time>{{ p.date | date: "%b %-d, %Y" }}</time>
+  </div>
+</a>
