@@ -29,7 +29,7 @@ title: Writeups
 <div class="wu-grid">
   {% for p in platforms %}
     {% assign f = p | split: "|" %}
-    {% assign posts = site.categories[f[0]] %}
+    {% assign key = f[0] %}{% assign posts = site.categories[key] %}
     {% assign n = posts | size %}
     {% if n > 0 %}
       <a class="wu-card" href="{{ '/categories/' | append: f[0] | slugify | append: '/' | relative_url }}">
@@ -45,7 +45,7 @@ title: Writeups
 
 {% for p in platforms %}
   {% assign f = p | split: "|" %}
-  {% assign posts = site.categories[f[0]] %}
+  {% assign key = f[0] %}{% assign posts = site.categories[key] %}
   {% if posts.size > 0 %}
   <div class="wu-section">
     <h3><i class="fas {{ f[1] }}"></i> Latest {{ f[0] }}</h3>
