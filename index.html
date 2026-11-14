@@ -4,6 +4,13 @@ title: Writeups
 ---
 
 <style>
+  .wu-welcome { display: flex; flex-wrap: wrap; border-radius: .75rem; overflow: hidden; background: var(--card-bg); border: 1px solid var(--main-border-color, rgba(128,128,128,.25)); box-shadow: var(--card-shadow); text-decoration: none !important; margin-bottom: 1.75rem; transition: transform .15s ease, border-color .15s ease; }
+  .wu-welcome:hover { transform: translateY(-3px); border-color: var(--link-color); }
+  .wu-welcome .wu-wimg { flex: 1 1 280px; min-height: 160px; background-size: cover; background-position: center; background-repeat: no-repeat; background-color: rgba(128,128,128,.15); }
+  .wu-welcome .wu-wbody { flex: 1 1 280px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: .4rem; }
+  .wu-welcome .wu-wtag { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--link-color); }
+  .wu-welcome h3 { margin: 0; font-size: 1.25rem; color: var(--heading-color); }
+  .wu-welcome p { margin: 0; font-size: .92rem; color: var(--text-muted-color); }
   .wu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
   .wu-card { display: block; padding: 1rem 1rem 1.4rem; border-radius: .75rem; background: var(--card-bg); border: 1px solid var(--main-border-color, rgba(128,128,128,.25)); box-shadow: var(--card-shadow); text-decoration: none !important; transition: transform .15s ease, border-color .15s ease; }
   a.wu-card:hover { transform: translateY(-3px); border-color: var(--link-color); }
@@ -20,6 +27,19 @@ title: Writeups
   .wu-list time { color: var(--text-muted-color); font-size: .8rem; white-space: nowrap; }
   .wu-more { font-size: .9rem; }
 </style>
+
+{% assign welcome = site.categories['Blog'] | first %}
+{% if welcome %}
+  {% assign wcover = welcome.image.path | default: welcome.image %}
+  <a class="wu-welcome" href="{{ welcome.url | relative_url }}">
+    {% if wcover %}<div class="wu-wimg" role="img" aria-label="{{ welcome.title | escape }}" style="background-image: url('{{ wcover | relative_url }}')"></div>{% endif %}
+    <div class="wu-wbody">
+      <span class="wu-wtag">Start here</span>
+      <h3>{{ welcome.title }}</h3>
+      <p>{{ welcome.description | truncatewords: 30 }}</p>
+    </div>
+  </a>
+{% endif %}
 
 {% comment %}
   To add a new box: add a line  Name|fontawesome-icon|description|image-file
