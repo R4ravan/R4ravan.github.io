@@ -250,3 +250,7 @@ article .preview-img img { border-radius: 10px; border: 1px solid var(--main-bor
   border-color: rgba(45, 212, 191, 0.45);
   transform: translateY(-2px);
 }
+
+/* Mobile navigation hardening */
+@media (max-width: 991px) { #topbar-wrapper { backdrop-filter: none; -webkit-backdrop-filter: none; position: relative; z-index: 5; } #sidebar-trigger { position: relative; z-index: 6; min-width: 48px; min-height: 44px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; cursor: pointer; } #sidebar { z-index: 100; } #mask { z-index: 99; } #sidebar a, #sidebar button { touch-action: manipulation; } }
+@media (hover: none) { #sidebar .nav-item:hover .nav-link { transform: none; } #sidebar .sidebar-bottom a:hover, #sidebar .sidebar-bottom button:hover { transform: none; } .wu-pcard:hover { transform: none; } }
