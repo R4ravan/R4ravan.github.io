@@ -4,7 +4,7 @@ date: 2026-11-16 11:03:00 +0530h
 categories: [PortSwigger, SQL Injection]
 tags: [apprentice, sql-injection, where-clause, firefox, burp-suite, web-security-academy, hidden-data]
 image:
-  path: /assets/img/posts/covers/sql-injection-where-clause-hidden-data.png
+  path: /assets/img/posts/covers/sql-injection-where-clause-hidden-data%201.png
   alt: "SQL injection vulnerability in WHERE clause allowing retrieval of hidden data"
 description: "Apprentice PortSwigger lab where a SQL injection in the product category filter is used to retrieve hidden, unreleased products by breaking out of the WHERE clause."
 ---
