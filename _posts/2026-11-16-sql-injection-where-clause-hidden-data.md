@@ -1,6 +1,6 @@
 ---
 title: "PortSwigger: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data"
-date: 2026-11-16 11:03:00 +0530
+date: 2026-11-16 11:03:00 +0530h
 categories: [PortSwigger, SQL Injection]
 tags: [apprentice, sql-injection, where-clause, firefox, burp-suite, web-security-academy, hidden-data]
 image:
@@ -35,7 +35,7 @@ Host: 0a4300d804070a7780b0c6ca00d00057.web-security-academy.net
 
 This value drops straight into the `WHERE` clause of the backend query. The `released = 1` condition is what filters out unreleased products, so if I can neutralise that condition, the hidden products should appear.
 
-![Normal Corporate gifts category listing before injection](/assets/img/posts/sql-injection-where-clause-hidden-data/01-corporate-gifts-filter.png)
+![Normal Corporate gifts category listing before injection](/assets/img/posts/images/sql-injection-where-clause-hidden-data/01-corporate-gifts-filter.png)
 
 ## 💥 Exploitation
 
@@ -54,7 +54,7 @@ This value drops straight into the `WHERE` clause of the backend query. The `rel
    Host: 0a4300d804070a7780b0c6ca00d00057.web-security-academy.net
    ```
 
-   ![Address bar showing the category parameter set to the OR 1=1 payload](/assets/img/posts/sql-injection-where-clause-hidden-data/02-category-payload-url.png)
+   ![Address bar showing the category parameter set to the OR 1=1 payload](/assets/img/posts/images/sql-injection-where-clause-hidden-data/02-category-payload-url.png)
 
    The resulting server-side query becomes:
 
@@ -66,7 +66,7 @@ This value drops straight into the `WHERE` clause of the backend query. The `rel
 
 3. The response now lists products beyond the normal catalogue, including unreleased items, and the lab is marked as solved.
 
-   ![Congratulations banner confirming the lab is solved with hidden products displayed](/assets/img/posts/sql-injection-where-clause-hidden-data/03-lab-solved-banner.png)
+   ![Congratulations banner confirming the lab is solved with hidden products displayed](/assets/img/posts/images/sql-injection-where-clause-hidden-data/03-lab-solved-banner.png)
 
 > The same request can also be intercepted and modified in Burp Suite (Proxy/Repeater) instead of the browser address bar — the payload is identical.
 
