@@ -4,7 +4,7 @@ date: 2026-11-19 22:45:00 +0530
 categories: [TryHackMe, Web]
 tags: [lfi, path-traversal, source-code-disclosure, flask, jinja2, burp-suite, easy]
 image:
-  path: /assets/img/posts/covers/valenfind-lfi-to-database-leak.png
+  path: /assets/img/posts/covers/valenfind_cover_banner.png
   alt: "ValenFind"
 description: "Chaining a Local File Inclusion in a Flask theme-loader into full source code disclosure, leaking an admin API key that lets me export the whole user database on TryHackMe's ValenFind room."
 ---
