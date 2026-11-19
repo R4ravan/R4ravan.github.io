@@ -1,5 +1,5 @@
 ---
-title: "TryHackMe: ValenFind"
+title: "TryHackMe: ValenFind 🏹"
 date: 2026-11-19 22:45:00 +0530
 categories: [TryHackMe, Web]
 tags: [lfi, path-traversal, source-code-disclosure, flask, jinja2, burp-suite, easy]
