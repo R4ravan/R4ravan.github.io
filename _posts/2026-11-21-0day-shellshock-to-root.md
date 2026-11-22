@@ -4,7 +4,7 @@ date: 2026-11-21 17:48:00 +0530
 categories: [TryHackMe, Web]
 tags: [shellshock, cve-2014-6271, privilege-escalation, overlayfs, cgi-bin, easy, gobuster, nikto]
 image:
-  path: /assets/img/posts/covers/0day-shellshock-to-root.png
+  path: /assets/img/posts/covers/0day_blog_cover.png
   alt: "TryHackMe 0day - Shellshock to root"
 description: "Rooting the TryHackMe 0day box: a 403 on /cgi-bin/ leads to a Shellshock (CVE-2014-6271) RCE, then an overlayfs kernel exploit for root - including the cc1/PATH compile error most walkthroughs skip."
 ---
@@ -28,7 +28,7 @@ gobuster dir -u http://TARGET -w /usr/share/dirb/wordlists/common.txt
 
 Two results stood out next to each other: `/cgi-bin` redirected (301), and `/cgi-bin/` itself returned **403 Forbidden**. A `server-status` endpoint also returned 403.
 
-![Gobuster output showing cgi-bin 301, cgi-bin/ 403 and server-status 403](/assets/img/posts/0day-shellshock-to-root/01-gobuster-enum.png)
+![Gobuster output showing cgi-bin 301, cgi-bin/ 403 and server-status 403](/assets/img/posts/images/0day-shellshock-to-root/01-gobuster-enum.png)
 
 A 403 on a directory does not mean there is nothing there - it usually means the directory listing is locked, not the files inside it. `/cgi-bin/` on an old Apache server is a classic place for Shellshock, so I pointed nikto at that directory.
 
@@ -38,7 +38,7 @@ nikto -h http://TARGET/cgi-bin/
 
 Nikto confirmed it: `/cgi-bin/test.cgi` was flagged as vulnerable to **Shellshock (CVE-2014-6271)**, on an outdated Apache 2.4.7.
 
-![Nikto flagging cgi-bin/test.cgi as vulnerable to Shellshock CVE-2014-6271](/assets/img/posts/0day-shellshock-to-root/02-nikto-shellshock.png)
+![Nikto flagging cgi-bin/test.cgi as vulnerable to Shellshock CVE-2014-6271](/assets/img/posts/images/0day-shellshock-to-root/02-nikto-shellshock.png)
 
 ## 💥 Exploitation
 
@@ -49,6 +49,10 @@ Shellshock abuses the way old bash parses an environment variable that starts wi
 ```bash
 () { :; }; echo; /bin/bash -c 'id'
 ```
+
+To confirm it, I sent the payload through the `User-Agent` header against `/cgi-bin/test.cgi` and had it print `/etc/passwd` and run `uname -a`. Both came back, so I had command execution, and the kernel string showed Ubuntu 14.04 on 3.13.0.
+
+![Shellshock RCE reading /etc/passwd and running uname -a via the User-Agent header](/assets/img/posts/images/0day-shellshock-to-root/02-shellshock-rce.png)
 
 CGI scripts receive HTTP headers as environment variables (the `User-Agent` header becomes `HTTP_USER_AGENT`), so a crafted `User-Agent` reaches bash through the CGI script and runs.
 
@@ -77,7 +81,7 @@ cd ryan
 cat user.txt  # THM{Sh3llSh0ck_r0ckz}
 ```
 
-![Reverse shell as www-data reading user.txt](/assets/img/posts/0day-shellshock-to-root/03-reverse-shell-user.png)
+![Reverse shell as www-data reading user.txt](/assets/img/posts/images/0day-shellshock-to-root/03-reverse-shell-user.png)
 
 ## 🧠 Root Cause
 
@@ -103,7 +107,7 @@ searchsploit ubuntu 3.13.0
 
 This returned the overlayfs Local Privilege Escalation (`37292.c`) for kernel 3.13.0.
 
-![searchsploit showing the overlayfs 37292.c exploit for kernel 3.13.0](/assets/img/posts/0day-shellshock-to-root/04-searchsploit-overlayfs.png)
+![searchsploit showing the overlayfs 37292.c exploit for kernel 3.13.0](/assets/img/posts/images/0day-shellshock-to-root/04-searchsploit-overlayfs.png)
 
 The exploit is written in C, so it needs compiling on the target. The first compile failed:
 
@@ -127,7 +131,7 @@ cd /root
 cat root.txt  # THM{g00d_j0b_0day_is_Pleased}
 ```
 
-![cc1 error, PATH fix, recompile, and root.txt](/assets/img/posts/0day-shellshock-to-root/05-cc1-fix-root.png)
+![cc1 error, PATH fix, recompile, and root.txt](/assets/img/posts/images/0day-shellshock-to-root/05-cc1-fix-root.png)
 
 ## 📝 Key Takeaways
 
