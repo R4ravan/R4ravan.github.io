@@ -78,7 +78,7 @@ The listener caught a shell as `www-data`.
 cd /home
 ls            # lcs  ryan
 cd ryan
-cat user.txt  # THM{Sh3llSh0ck_r0ckz}
+cat user.txt  # THM{...}
 ```
 
 ![Reverse shell as www-data reading user.txt](/assets/img/posts/images/0day-shellshock-to-root/03-reverse-shell-user.png)
@@ -128,7 +128,7 @@ The exploit spawned a root shell:
 ```bash
 whoami        # root
 cd /root
-cat root.txt  # THM{g00d_j0b_0day_is_Pleased}
+cat root.txt  # THM{...}
 ```
 
 ![cc1 error, PATH fix, recompile, and root.txt](/assets/img/posts/images/0day-shellshock-to-root/05-cc1-fix-root.png)
